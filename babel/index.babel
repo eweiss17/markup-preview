@@ -1,0 +1,32 @@
+class Overlord extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      text: ""
+    };
+  }
+  update(input) {
+    this.setState({ text: marked(input.target.value) });
+  }
+  render() {
+    return (
+      <div id="grid">
+        <Box update={this.update.bind(this)} />
+        <div
+          id="output"
+          dangerouslySetInnerHTML={{ __html: this.state.text }}
+        />
+      </div>
+    );
+  }
+}
+
+const Box = props => (
+  <textarea
+    rows="30"
+    placeholder="Type here to preview your markup"
+    onChange={props.update}
+  />
+);
+
+ReactDOM.render(<Overlord />, document.getElementById("app"));
